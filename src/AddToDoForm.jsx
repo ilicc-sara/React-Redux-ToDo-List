@@ -4,7 +4,6 @@ import { addToDo } from "./redux/toDoSlice";
 
 function AddToDoForm() {
   const [value, setValue] = useState("");
-  console.log(value);
 
   const dispatch = useDispatch();
 
