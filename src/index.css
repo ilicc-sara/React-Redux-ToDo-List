@@ -72,6 +72,10 @@ form {
   padding-right: 30px;
   border-radius: 10px;
 }
+
+.completed {
+  background-color: rgba(128, 207, 129, 0.674);
+}
 .list-item span {
   display: flex;
   width: fit-content;
