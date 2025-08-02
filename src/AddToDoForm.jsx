@@ -9,16 +9,19 @@ function AddToDoForm() {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="form">
       <label>Name</label>
       <input
+        className="input-todo"
         type="text"
         placeholder="Add todo..."
         value={value}
         onChange={(event) => setValue(event.target.value)}
       ></input>
 
-      <button type="submit">Submit</button>
+      <button type="submit" className="submit-btn">
+        Submit
+      </button>
     </form>
   );
 }
