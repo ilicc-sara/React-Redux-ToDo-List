@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, compose } from "@reduxjs/toolkit";
 
 export const getToDosAsync = createAsyncThunk(
   "todos/getToDosAsync",
@@ -25,6 +25,28 @@ export const addToDosAsync = createAsyncThunk(
     if (response.ok) {
       const todo = await response.json();
       return { todo };
+    }
+  }
+);
+
+// export const checkToDoAsync = createAsyncThunk("todos/checkToDoAsync", async(id) => {
+
+// })
+
+export const toggleCompleteAsync = createAsyncThunk(
+  "todos/completeToDoAsync",
+  async (payload) => {
+    const response = await fetch(`http://localhost:7000/todos/${payload.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: payload.completed }),
+    });
+
+    if (response.ok) {
+      const todo = await response.json();
+      return { id: todo.id, completed: todo.completed };
     }
   }
 );
@@ -63,6 +85,10 @@ const toDoSlice = createSlice({
     });
     builder.addCase(addToDosAsync.fulfilled, (state, action) => {
       state.push(action.payload.todo);
+    });
+    builder.addCase(toggleCompleteAsync.fulfilled, (state, action) => {
+      const index = state.findIndex((toDo) => toDo.id === action.payload.id);
+      state[index].completed = action.payload.completed;
     });
   },
 });
