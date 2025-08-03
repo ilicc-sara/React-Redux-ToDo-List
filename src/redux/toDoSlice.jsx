@@ -29,10 +29,6 @@ export const addToDosAsync = createAsyncThunk(
   }
 );
 
-// export const checkToDoAsync = createAsyncThunk("todos/checkToDoAsync", async(id) => {
-
-// })
-
 export const toggleCompleteAsync = createAsyncThunk(
   "todos/completeToDoAsync",
   async (payload) => {
@@ -47,6 +43,29 @@ export const toggleCompleteAsync = createAsyncThunk(
     if (response.ok) {
       const todo = await response.json();
       return { id: todo.id, completed: todo.completed };
+    }
+  }
+);
+
+// const resp = await fetch(`http://localhost:7000/todos/${payload.id}`, {
+//   method: "DELETE",
+// });
+
+export const deleteToDoAsync = createAsyncThunk(
+  "todos/deleteToDoAsync",
+  async (payload) => {
+    const response = await fetch(`http://localhost:7000/${payload.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: payload.id }),
+    });
+
+    if (response.ok) {
+      const todo = await response.json();
+      // return { ...todo.filter((toDo) => toDo.id === payload.id) };
+      return { todo };
     }
   }
 );
@@ -89,6 +108,9 @@ const toDoSlice = createSlice({
     builder.addCase(toggleCompleteAsync.fulfilled, (state, action) => {
       const index = state.findIndex((toDo) => toDo.id === action.payload.id);
       state[index].completed = action.payload.completed;
+    });
+    builder.addCase(deleteToDoAsync.fulfilled, (state, action) => {
+      return state.filter((toDo) => toDo.id !== action.payload.id);
     });
   },
 });
