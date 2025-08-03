@@ -51,21 +51,33 @@ export const toggleCompleteAsync = createAsyncThunk(
 //   method: "DELETE",
 // });
 
+// export const deleteToDoAsync = createAsyncThunk(
+//   "todos/deleteToDoAsync",
+//   async (payload) => {
+//     const response = await fetch(`http://localhost:7000/${payload.id}`, {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ id: payload.id }),
+//     });
+
+//     if (response.ok) {
+//       const todo = await response.json();
+
+//       return { ...todo.filter((toDo) => toDo.id === payload.id) };
+//     }
+//   }
+// );
 export const deleteToDoAsync = createAsyncThunk(
   "todos/deleteToDoAsync",
   async (payload) => {
-    const response = await fetch(`http://localhost:7000/${payload.id}`, {
+    const response = await fetch(`http://localhost:7000/todos/${payload.id}`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: payload.id }),
     });
 
     if (response.ok) {
-      const todo = await response.json();
-      // return { ...todo.filter((toDo) => toDo.id === payload.id) };
-      return { todo };
+      return { id: payload.id };
     }
   }
 );
