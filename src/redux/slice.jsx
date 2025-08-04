@@ -21,13 +21,8 @@ const toDoSlice = createSlice({
       });
     },
     toggleCheckToDo: (state, action) => {
-      console.log(state.find((toDo) => toDo.id === action.payload.id));
-      //   const index = state.findIndex((toDo) => toDo.id === action.payload.id);
-      //   return (state[index] = {
-      //     title: action.payload.title,
-      //     id: action.payload.id,
-      //     completed: !action.payload.completed,
-      //   });
+      state.findIndex((toDo) => toDo.id === action.payload);
+      const index = state.findIndex((toDo) => toDo.id === action.payload);
     },
     deleteToDo: (state, action) => {
       return state.filter((toDo) => toDo.id !== action.payload);
