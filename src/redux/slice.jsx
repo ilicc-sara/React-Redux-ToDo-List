@@ -15,17 +15,17 @@ const toDoSlice = createSlice({
     addToDo: (state, action) => {
       // console.log("stejt", state, "ekšn", action);
       state.push({
-        title: action.payload,
+        title: action.payload.title,
         id: crypto.randomUUID(),
         completed: false,
       });
     },
     toggleCheckToDo: (state, action) => {
-      state.findIndex((toDo) => toDo.id === action.payload);
-      const index = state.findIndex((toDo) => toDo.id === action.payload);
+      const index = state.findIndex((toDo) => toDo.id === action.payload.id);
+      state[index].completed = action.payload.completed;
     },
     deleteToDo: (state, action) => {
-      return state.filter((toDo) => toDo.id !== action.payload);
+      return state.filter((toDo) => toDo.id !== action.payload.id);
     },
   },
 });

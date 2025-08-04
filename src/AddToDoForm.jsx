@@ -11,7 +11,8 @@ function AddToDoForm() {
     event.preventDefault();
     console.log("user entered: " + value);
 
-    dispatch(addToDo(value));
+    dispatch(addToDo({ title: value }));
+    setValue("");
   };
 
   return (
