@@ -20,8 +20,20 @@ const toDoSlice = createSlice({
         completed: false,
       });
     },
+    toggleCheckToDo: (state, action) => {
+      console.log(state.find((toDo) => toDo.id === action.payload.id));
+      //   const index = state.findIndex((toDo) => toDo.id === action.payload.id);
+      //   return (state[index] = {
+      //     title: action.payload.title,
+      //     id: action.payload.id,
+      //     completed: !action.payload.completed,
+      //   });
+    },
+    deleteToDo: (state, action) => {
+      return state.filter((toDo) => toDo.id !== action.payload);
+    },
   },
 });
 
-export const { addToDo } = toDoSlice.actions;
+export const { addToDo, toggleCheckToDo, deleteToDo } = toDoSlice.actions;
 export default toDoSlice.reducer;
