@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const ToDoList = () => {
   const toDos = useSelector((state) => state.toDos);
-  console.log(toDos);
+
   // const toDos = [
   //   { id: 1, title: "todo1", completed: false },
   //   { id: 2, title: "todo2", completed: false },

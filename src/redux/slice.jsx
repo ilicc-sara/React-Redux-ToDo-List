@@ -13,7 +13,6 @@ const toDoSlice = createSlice({
   initialState,
   reducers: {
     addToDo: (state, action) => {
-      // console.log("stejt", state, "ekšn", action);
       state.push({
         title: action.payload.title,
         id: crypto.randomUUID(),
